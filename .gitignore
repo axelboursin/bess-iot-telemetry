@@ -1,0 +1,21 @@
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+.ruff_cache/
+dist/
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+tfplan
+backend.hcl
+
+# Device secrets: private keys and issued certificates never go to git.
+# Only CSRs (public material) are committed.
+devices/*.key
+devices/*.crt
+devices/*.pem
+!devices/*.csr.pem

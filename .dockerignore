@@ -1,0 +1,8 @@
+.git
+.venv
+tests
+terraform
+devices
+local
+.github
+**/__pycache__

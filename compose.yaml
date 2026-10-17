@@ -1,0 +1,32 @@
+# Local stack, no AWS account needed:
+#   docker compose up --build
+#   docker compose exec mosquitto mosquitto_sub -t 'bess/#' -v
+#   docker compose exec mosquitto mosquitto_pub -t bess/site-local-01/commands \
+#     -m '{"command_id":"demo-1","setpoint_kw":500}'
+
+services:
+  simulator:
+    build: .
+    entrypoint: ["bess-sim"]
+    environment:
+      MODBUS_PORT: "5020"
+      BESS_INITIAL_SOC_PCT: "60"
+
+  mosquitto:
+    image: eclipse-mosquitto:2.0.20
+    volumes:
+      - ./local/mosquitto.conf:/mosquitto/config/mosquitto.conf:ro
+    ports:
+      - "127.0.0.1:1883:1883"
+
+  agent:
+    build: .
+    depends_on: [simulator, mosquitto]
+    environment:
+      SITE_ID: site-local-01
+      MODBUS_HOST: simulator
+      MODBUS_PORT: "5020"
+      MQTT_HOST: mosquitto
+      MQTT_PORT: "1883"
+      MQTT_TLS: "false"
+      PUBLISH_INTERVAL_S: "2"
