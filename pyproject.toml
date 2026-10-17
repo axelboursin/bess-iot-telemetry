@@ -6,7 +6,7 @@ readme = "README.md"
 requires-python = ">=3.11"
 license = { text = "MIT" }
 dependencies = [
-    "pymodbus==3.6.9",
+    "pymodbus==3.16.1",
     "paho-mqtt==2.1.0",
 ]
 
