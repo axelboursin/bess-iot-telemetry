@@ -1,7 +1,7 @@
 # One image, two entrypoints: bess-sim (simulator) and bess-agent (edge agent).
 # Built for linux/amd64 and linux/arm64, since edge gateways are often ARM.
 
-FROM ghcr.io/astral-sh/uv:0.5.11 AS uv
+FROM ghcr.io/astral-sh/uv:0.13.6 AS uv
 
 FROM python:3.12-slim AS build
 COPY --from=uv /uv /usr/local/bin/uv
